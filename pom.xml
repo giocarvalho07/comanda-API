@@ -53,6 +53,20 @@
 		<artifactId>mysql-connector-java</artifactId>
 		<scope>runtime</scope>
 	</dependency>
+
+	<dependency>
+		<groupId>org.springdoc</groupId>
+		<artifactId>springdoc-openapi-ui</artifactId>
+		<version>1.6.4</version> <!-- Verifique a versão mais recente no Maven Central -->
+	</dependency>
+
+	<dependency>
+		<groupId>org.springdoc</groupId>
+		<artifactId>springdoc-openapi-data-rest</artifactId>
+		<version>1.6.4</version> <!-- Verifique a versão mais recente no Maven Central -->
+	</dependency>
+
+
 	<dependency>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-test</artifactId>
