@@ -28,6 +28,8 @@ public class Pedido implements Serializable {
 
     private String data_entrega;
 
+    private String data_pagamento;
+
     private Double frete;
 
     @JsonManagedReference
@@ -43,7 +45,7 @@ public class Pedido implements Serializable {
     public Pedido(){
     }
 
-    public Pedido(Long id_pedido, String identificador, String data_pedido, String observacao, String data_entrega, Double frete, FormaPagamento forma_pagamento, List<ItemPedido> itemPedidos) {
+    public Pedido(Long id_pedido, String identificador, String data_pedido, String observacao, String data_entrega, String data_pagamento, Double frete, FormaPagamento forma_pagamento, List<ItemPedido> itemPedidos) {
         this.id_pedido = id_pedido;
         this.identificador = identificador;
         this.data_pedido = data_pedido;
@@ -52,6 +54,7 @@ public class Pedido implements Serializable {
         this.frete = frete;
         this.forma_pagamento = forma_pagamento;
         this.itemPedidos = itemPedidos;
+        this.data_pagamento = data_pagamento;
     }
 
     public Long getId_pedido() {
@@ -94,6 +97,14 @@ public class Pedido implements Serializable {
         this.data_entrega = data_entrega;
     }
 
+    public String getData_pagamento() {
+        return data_pagamento;
+    }
+
+    public void setData_pagamento(String data_pagamento) {
+        this.data_pagamento = data_pagamento;
+    }
+
     public Double getFrete() {
         return frete;
     }
@@ -126,6 +137,7 @@ public class Pedido implements Serializable {
                 ", data_pedido='" + data_pedido + '\'' +
                 ", observacao='" + observacao + '\'' +
                 ", data_entrega='" + data_entrega + '\'' +
+                ", data_pagamento='" + data_pagamento + '\'' +
                 ", frete=" + frete +
                 ", forma_pagamento=" + forma_pagamento +
                 ", itemPedidos=" + itemPedidos +
