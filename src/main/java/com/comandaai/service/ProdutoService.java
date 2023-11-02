@@ -1,9 +1,12 @@
 package com.comandaai.service;
 
 import com.comandaai.domain.Produto;
+import com.comandaai.dto.ProdutoTipoCategoriaDTO;
 import com.comandaai.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,4 +40,23 @@ public class ProdutoService {
     public void excluirProduto(Long id) {
         produtoRepository.deleteById(id);
     }
+
+    public List<ProdutoTipoCategoriaDTO> listarProdutosComTipoCategoria() {
+        List<ProdutoTipoCategoriaDTO> produtosComTipoCategoria = new ArrayList<>();
+        List<Produto> produtos = produtoRepository.findAll(); // Ou use o método adequado para buscar produtos
+
+        for (Produto produto : produtos) {
+            ProdutoTipoCategoriaDTO dto = new ProdutoTipoCategoriaDTO();
+            dto.setIdProduto(produto.getId_produto());
+            dto.setNomeProduto(produto.getNome_produto());
+            dto.setTipoProduto(produto.getTipo_produto().getNome_tipo());
+            dto.setCategoriaProduto(produto.getCategoria_produto().getNome());
+            // Preencha outros campos do DTO conforme necessário
+
+            produtosComTipoCategoria.add(dto);
+        }
+
+        return produtosComTipoCategoria;
+    }
+
 }

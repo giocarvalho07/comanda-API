@@ -37,6 +37,11 @@ public class Pedido implements Serializable {
     @ManyToOne
     private FormaPagamento forma_pagamento;
 
+    @JsonManagedReference
+    @JsonIgnore
+    @ManyToOne
+    private Cliente clientes;
+
     @JsonIgnore // Adicione esta anotação para evitar que a lista seja incluída na representação JSON
     @OneToMany(mappedBy = "pedido_item")
     private List<ItemPedido> itemPedidos;
@@ -45,16 +50,17 @@ public class Pedido implements Serializable {
     public Pedido(){
     }
 
-    public Pedido(Long id_pedido, String identificador, String data_pedido, String observacao, String data_entrega, String data_pagamento, Double frete, FormaPagamento forma_pagamento, List<ItemPedido> itemPedidos) {
+    public Pedido(Long id_pedido, String identificador, String data_pedido, String observacao, String data_entrega, String data_pagamento, Double frete, FormaPagamento forma_pagamento, Cliente clientes, List<ItemPedido> itemPedidos) {
         this.id_pedido = id_pedido;
         this.identificador = identificador;
         this.data_pedido = data_pedido;
         this.observacao = observacao;
         this.data_entrega = data_entrega;
+        this.data_pagamento = data_pagamento;
         this.frete = frete;
         this.forma_pagamento = forma_pagamento;
+        this.clientes = clientes;
         this.itemPedidos = itemPedidos;
-        this.data_pagamento = data_pagamento;
     }
 
     public Long getId_pedido() {
@@ -121,6 +127,14 @@ public class Pedido implements Serializable {
         this.forma_pagamento = forma_pagamento;
     }
 
+    public Cliente getClientes() {
+        return clientes;
+    }
+
+    public void setClientes(Cliente clientes) {
+        this.clientes = clientes;
+    }
+
     public List<ItemPedido> getItemPedidos() {
         return itemPedidos;
     }
@@ -140,6 +154,7 @@ public class Pedido implements Serializable {
                 ", data_pagamento='" + data_pagamento + '\'' +
                 ", frete=" + frete +
                 ", forma_pagamento=" + forma_pagamento +
+                ", clientes=" + clientes +
                 ", itemPedidos=" + itemPedidos +
                 '}';
     }
