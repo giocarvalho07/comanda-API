@@ -12,6 +12,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/produtos")
+@CrossOrigin(origins = {"http://127.0.0.1:5500", "https://comanda-api.onrender.com"})
 public class ProdutoController {
 
     @Autowired
