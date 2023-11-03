@@ -19,7 +19,6 @@ import java.util.Map;
 
 
 @RestController
-@CrossOrigin(origins = "https://comanda-api.onrender.com") // Substitua pelo domínio do seu site
 @RequestMapping("/api/v1/dashboard")
 public class DashboardController {
 
