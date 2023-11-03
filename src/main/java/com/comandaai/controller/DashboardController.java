@@ -20,7 +20,6 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/dashboard")
-@CrossOrigin(origins = "http://127.0.0.1:5500")
 public class DashboardController {
 
     // Injeção de dependência do repositório de pedidos
