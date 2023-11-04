@@ -1,6 +1,9 @@
 package com.comandaai.controller;
 
+import com.comandaai.query.PedidosPorClienteResponse;
 import com.comandaai.query.PedidosPorFormaPagamento;
+import com.comandaai.query.TotalPedidosPorMesResponse;
+import com.comandaai.query.TotalPedidosResponse;
 import com.comandaai.repository.ClienteRepository;
 import com.comandaai.repository.PedidoRepository;
 import com.comandaai.repository.ProdutoRepository;
@@ -37,17 +40,26 @@ public class DashboardController {
     private PedidoService pedidoService;
 
     @GetMapping("/total-pedidos")
-    public Long getTotalPedidos() {
+    public ResponseEntity<TotalPedidosResponse> getTotalPedidos() {
         Long totalPedidos = pedidoRepository.count();
-        return totalPedidos;
+        TotalPedidosResponse response = new TotalPedidosResponse(totalPedidos);
+        return ResponseEntity.ok(response);
     }
-
 
     @GetMapping("/total-pedidos-por-mes")
-    public List<Object[]> getTotalPedidosPorMes() {
+    public ResponseEntity<List<TotalPedidosPorMesResponse>> getTotalPedidosPorMes() {
+        List<TotalPedidosPorMesResponse> responses = new ArrayList<>();
         List<Object[]> totalPedidosPorMes = pedidoRepository.getTotalPedidosPorMes();
-        return totalPedidosPorMes;
+
+        for (Object[] result : totalPedidosPorMes) {
+            int mes = (int) result[0];
+            int totalPedidos = ((Number) result[1]).intValue();
+            TotalPedidosPorMesResponse response = new TotalPedidosPorMesResponse(mes, totalPedidos);
+            responses.add(response);
+        }
+        return ResponseEntity.ok(responses);
     }
+
 
     @GetMapping("/total-pedidos-produtos")
     public ResponseEntity<Map<String, Long>> getPedidosXProdutosTotal() {
@@ -85,9 +97,21 @@ public class DashboardController {
         return pedidosPorFormaPagamentoList;
     }
 
+
     @GetMapping("/pedidos-por-cliente")
-    public List<Object[]> contarPedidosPorCliente() {
-        return pedidoService.contarPedidosPorCliente();
+    public ResponseEntity<List<PedidosPorClienteResponse>> contarPedidosPorCliente() {
+        List<PedidosPorClienteResponse> responses = new ArrayList<>();
+        List<Object[]> results = pedidoService.contarPedidosPorCliente();
+
+        for (Object[] result : results) {
+            String clienteNome = (String) result[0];
+            int quantidadePedidos = ((Number) result[1]).intValue(); // Certifique-se de converter o valor para int
+
+            PedidosPorClienteResponse response = new PedidosPorClienteResponse(clienteNome, quantidadePedidos);
+            responses.add(response);
+        }
+
+        return ResponseEntity.ok(responses);
     }
 
 
